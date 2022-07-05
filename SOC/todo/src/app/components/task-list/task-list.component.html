@@ -1,0 +1,50 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search task"
+          [(ngModel)]="title"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchTitle()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1 class="h1">Tasks List</h1>
+     
+      <div style="text-align:center ;">
+        <span *ngIf="tasks?.length==0" class="h6">Please Add a Task</span>
+        <span *ngIf="tasks?.length!=0" class="h6">Click on a task to view details</span>
+
+      </div>
+      <ul class="list-group">
+        <li
+          class="list-group-item h6"
+          *ngFor="let task of tasks; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveTask(task, i)"
+          [ngStyle]="{'text-decoration':task.completed==true?'line-through':'None'}"
+        >
+          {{ task.title|titlecase }}
+        </li>
+      </ul>
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTasks()">
+        Remove All
+      </button>
+    </div>
+    <div class="col-md-6">
+      <app-task-details
+        [viewMode]="true"
+        [currentTask]="currentTask"
+      ></app-task-details>
+    </div>
+  </div>
